@@ -130,8 +130,13 @@ function getLevelClass(level) {
   return Number.isInteger(level) && level >= 0 && level <= 3 ? `level-${level}` : "level-missing";
 }
 
+function parseLevel(rawLevel) {
+  const match = String(rawLevel ?? "").match(/[0-3]/);
+  return match ? Number.parseInt(match[0], 10) : null;
+}
+
 function setCardState(card, item) {
-  const level = Number.parseInt(item?.level, 10);
+  const level = parseLevel(item?.level);
   const validLevel = Number.isInteger(level) && level >= 0 && level <= 3;
 
   card.classList.remove(...LEVEL_CLASSES);
@@ -184,7 +189,7 @@ function renderBulletin(items, statusText) {
   });
 
   const validLevels = visibleItems
-    .map((item) => Number.parseInt(item?.level, 10))
+    .map((item) => parseLevel(item?.level))
     .filter((level) => Number.isInteger(level) && level >= 0 && level <= 3);
 
   if (validLevels.length === 0) {

@@ -21,14 +21,14 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-rows: 19vh 54vh 27vh;
+  grid-template-rows: 20vh 52vh 28vh;
   background: #111;
 }
 
 .header {
   min-height: 0;
   display: grid;
-  grid-template-columns: 19vw 1fr 22vw;
+  grid-template-columns: 20vw 1fr 22vw;
   align-items: stretch;
   background: #003366;
   border-bottom: 0.8vh solid #071b2f;
@@ -55,13 +55,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 2vw;
+  padding: 0 1.4vw;
   text-align: center;
 }
 
 .institution {
   width: 100%;
-  font-size: clamp(18px, 2.3vw, 46px);
+  font-size: clamp(13px, 2.3vw, 46px);
   font-weight: 700;
   line-height: 1.05;
   text-transform: uppercase;
@@ -69,8 +69,8 @@ body {
 
 h1 {
   width: 100%;
-  margin: 1vh 0 0;
-  font-size: clamp(28px, 4.1vw, 78px);
+  margin: 0.6vh 0 0;
+  font-size: clamp(19px, 4vw, 78px);
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: 0;
@@ -82,7 +82,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 1.6vh 1.2vw;
+  margin: 1.1vh 0.8vw;
   border: 0.45vh solid rgba(255, 255, 255, 0.9);
   background: rgba(0, 0, 0, 0.22);
   text-align: center;
@@ -90,7 +90,7 @@ h1 {
 
 .temperature-label {
   width: 100%;
-  font-size: clamp(14px, 1.35vw, 28px);
+  font-size: clamp(10px, 1.22vw, 26px);
   font-weight: 800;
   line-height: 1.1;
   text-transform: uppercase;
@@ -99,7 +99,7 @@ h1 {
 .temperature-value {
   width: 100%;
   margin-top: 0.5vh;
-  font-size: clamp(34px, 5.4vw, 96px);
+  font-size: clamp(22px, 5.1vw, 96px);
   font-weight: 900;
   line-height: 0.95;
 }
@@ -107,7 +107,7 @@ h1 {
 .temperature-status {
   width: 100%;
   margin-top: 0.5vh;
-  font-size: clamp(13px, 1.05vw, 22px);
+  font-size: clamp(9px, 1vw, 22px);
   font-weight: 700;
   line-height: 1.1;
   color: #d9ecff;
@@ -117,8 +117,8 @@ h1 {
   min-height: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.1vw;
-  padding: 1.4vh 1.1vw;
+  gap: 0.8vw;
+  padding: 1vh 0.8vw;
   background: #111;
 }
 
@@ -129,23 +129,23 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 0.7vh solid rgba(255, 255, 255, 0.88);
+  border: 0.55vh solid rgba(255, 255, 255, 0.88);
   text-align: center;
 }
 
 .forecast-date {
   width: 100%;
-  padding: 0 1vw;
-  font-size: clamp(28px, 4vw, 76px);
+  padding: 0 0.6vw;
+  font-size: clamp(17px, 3.45vw, 76px);
   font-weight: 900;
   line-height: 1;
 }
 
 .forecast-level {
   width: 100%;
-  margin-top: 4vh;
-  padding: 0 1vw;
-  font-size: clamp(32px, 5.4vw, 110px);
+  margin-top: 3vh;
+  padding: 0 0.6vw;
+  font-size: clamp(18px, 4.7vw, 110px);
   font-weight: 900;
   line-height: 0.98;
   text-transform: uppercase;
@@ -154,13 +154,13 @@ h1 {
 .risk-footer {
   min-height: 0;
   display: grid;
-  grid-template-columns: 1fr 19vw;
-  gap: 1.4vw;
+  grid-template-columns: 1fr 21vw;
+  gap: 1vw;
   align-items: center;
   background: #1a1a1a;
   border-top: 0.8vh solid #2d2d2d;
-  border-left: 2.4vw solid #555;
-  padding: 1.4vh 1.2vw 1.4vh 2vw;
+  border-left: 2vw solid #555;
+  padding: 1vh 0.8vw 1vh 1.3vw;
 }
 
 .footer-copy {
@@ -168,22 +168,22 @@ h1 {
 }
 
 .max-risk-label {
-  font-size: clamp(21px, 2.8vw, 54px);
+  font-size: clamp(15px, 2.55vw, 54px);
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
 }
 
 .risk-description {
-  margin: 1vh 0 0;
-  font-size: clamp(18px, 2.05vw, 42px);
+  margin: 0.7vh 0 0;
+  font-size: clamp(12px, 1.65vw, 42px);
   font-weight: 800;
   line-height: 1.12;
 }
 
 .bulletin-status {
-  margin-top: 1vh;
-  font-size: clamp(13px, 1.25vw, 24px);
+  margin-top: 0.6vh;
+  font-size: clamp(9px, 1.05vw, 24px);
   font-weight: 700;
   color: #cfcfcf;
 }
@@ -200,8 +200,8 @@ h1 {
 }
 
 .qr-code {
-  width: min(13.5vw, 18vh);
-  height: min(13.5vw, 18vh);
+  width: min(15vw, 18vh);
+  height: min(15vw, 18vh);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -230,7 +230,7 @@ h1 {
 
 .qr-label {
   margin-top: 0.8vh;
-  font-size: clamp(11px, 1vw, 20px);
+  font-size: clamp(8px, 0.95vw, 20px);
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
@@ -283,11 +283,11 @@ h1 {
 
 @media (max-width: 800px), (max-height: 480px) {
   .pmv-screen {
-    grid-template-rows: 20vh 53vh 27vh;
+    grid-template-rows: 21vh 50vh 29vh;
   }
 
   .header {
-    grid-template-columns: 20vw 1fr 24vw;
+    grid-template-columns: 20vw 1fr 22vw;
   }
 
   .forecast-grid {
@@ -296,8 +296,8 @@ h1 {
   }
 
   .risk-footer {
-    grid-template-columns: 1fr 21vw;
-    gap: 1vw;
-    padding: 1vh 1vw 1vh 1.4vw;
+    grid-template-columns: 1fr 22vw;
+    gap: 0.7vw;
+    padding: 0.8vh 0.7vw 0.8vh 1vw;
   }
 }
