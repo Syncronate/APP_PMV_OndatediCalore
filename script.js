@@ -6,28 +6,29 @@ const TEMPERATURE_REFRESH_MS = 15 * 60 * 1000;
 
 const RISK_TIPS = {
   // Livello 0 (Verde): Condizioni ordinarie, nessun rischio imminente
+  // Livello 0 (Verde)
   0: [
-    "Bere almeno 1,5/2 litri d'acqua al giorno e consumare pasti leggeri a base di frutta e verdura.",
-    "Indossare indumenti chiari in fibre naturali e applicare la protezione solare durante le attività all'aperto.",
-    "Assicurarsi che gli animali domestici abbiano sempre accesso ad acqua fresca, pulita e a zone d'ombra."
+    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
+    "All'aperto usare protezione solare e abiti chiari e leggeri.",
+    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
   ],
-  // Livello 1 (Giallo): Pre-allerta, rischio per i soggetti più fragili
+  // Livello 1 (Giallo)
   1: [
-    "Limitare l'esposizione al sole e le attività fisiche intense all'aperto nella fascia oraria 11:00–18:00.",
-    "Prestare attenzione ai soggetti vulnerabili (anziani, bambini piccoli, malati cronici), assicurandosi che siano idratati.",
-    "Tutelare gli animali domestici: evitare le passeggiate sull'asfalto rovente nelle ore centrali della giornata."
+    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
+    "All'aperto usare protezione solare e abiti chiari e leggeri.",
+    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
   ],
-  // Livello 2 (Arancione): Rischio per la salute della popolazione generale
+  // Livello 2 (Arancione)
   2: [
-    "Evitare di uscire all'aperto tra le 11:00 e le 18:00. Frequentare ambienti climatizzati o ben ventilati.",
-    "Aumentare l'assunzione di liquidi, evitando categoricamente alcolici e bevande ghiacciate o zuccherate.",
-    "Non lasciare mai, per nessun motivo, persone o animali all'interno di autovetture parcheggiate al sole."
+    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
+    "All'aperto usare protezione solare e abiti chiari e leggeri.",
+    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
   ],
-  // Livello 3 (Rosso): Emergenza, rischio elevato per tutta la popolazione
+  // Livello 3 (Rosso)
   3: [
-    "Restare in casa o in ambienti raffrescati, oscurando le finestre esposte al sole durante le ore diurne.",
-    "Monitorare costantemente i soggetti a rischio. In caso di malore o sintomi da colpo di calore, contattare subito il 112 o il 118.",
-    "Emergenza animali: mantenerli in luoghi freschi, bagnarli se mostrano affanno eccessivo e contattare il veterinario se necessario."
+    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
+    "All'aperto usare protezione solare e abiti chiari e leggeri.",
+    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
   ]
 };
 
