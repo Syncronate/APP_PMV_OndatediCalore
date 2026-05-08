@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bollettino Ondate di Calore - Senigallia</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="pmv-screen" aria-live="polite">
+    <header class="header">
+      <div class="brand">
+        <img
+          class="logo"
+          src="Logo_Dipartimento_della_Protezione_Civile.jpg"
+          alt="Logo Dipartimento della Protezione Civile"
+        >
+      </div>
+
+      <div class="header-title">
+        <div class="institution">Ministero della Salute / Protezione Civile</div>
+        <h1>PREVENZIONE ONDATE DI CALORE</h1>
+      </div>
+
+      <section class="temperature-box" aria-label="Temperatura attuale">
+        <div class="temperature-label">Temperatura Attuale</div>
+        <div id="current-temperature" class="temperature-value">--&deg;C</div>
+        <div id="temperature-status" class="temperature-status">Senigallia</div>
+      </section>
+    </header>
+
+    <section id="forecast-grid" class="forecast-grid" aria-label="Previsioni rischio caldo per tre giorni">
+      <article class="forecast-card level-missing">
+        <div class="forecast-date">--/--/----</div>
+        <div class="forecast-level">Dato non disponibile</div>
+      </article>
+      <article class="forecast-card level-missing">
+        <div class="forecast-date">--/--/----</div>
+        <div class="forecast-level">Dato non disponibile</div>
+      </article>
+      <article class="forecast-card level-missing">
+        <div class="forecast-date">--/--/----</div>
+        <div class="forecast-level">Dato non disponibile</div>
+      </article>
+    </section>
+
+    <footer id="risk-footer" class="risk-footer level-border-missing">
+      <div class="footer-copy">
+        <div id="max-risk-label" class="max-risk-label">Livello massimo: dato non disponibile</div>
+        <p id="risk-description" class="risk-description">
+          Bollettino temporaneamente non disponibile. Le informazioni saranno aggiornate automaticamente.
+        </p>
+        <div id="bulletin-status" class="bulletin-status">In attesa dei dati del Ministero della Salute</div>
+      </div>
+
+      <div class="qr-panel" aria-label="QR Code bollettino ufficiale">
+        <div id="qr-code" class="qr-code"></div>
+        <div class="qr-label">Bollettino PDF</div>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
