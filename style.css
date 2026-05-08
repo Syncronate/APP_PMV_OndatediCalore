@@ -17,109 +17,111 @@ body {
   color: #fff;
 }
 
+/* ─── Main Layout ─── */
+
 .pmv-screen {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-rows: 20vh 52vh 28vh;
+  grid-template-rows: auto 1fr auto;
   background: #111;
 }
 
+/* ─── HEADER ─── */
+
 .header {
-  min-height: 0;
   display: grid;
-  grid-template-columns: 20vw 1fr 22vw;
+  grid-template-columns: auto 1fr auto;
   align-items: stretch;
   background: #003366;
-  border-bottom: 0.8vh solid #071b2f;
+  border-bottom: 0.5vh solid #071b2f;
+  padding: 0.6vh 0;
 }
 
 .brand {
-  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
+  padding: 0.4vh 0.6vw;
+  min-width: 6vw;
+  max-width: 14vw;
 }
 
 .logo {
   display: block;
-  width: 94%;
-  height: 92%;
+  width: 100%;
+  height: 100%;
+  max-height: 12vh;
   object-fit: contain;
 }
 
 .header-title {
-  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 1.4vw;
+  padding: 0.4vh 1.2vw;
   text-align: center;
-}
-
-.institution {
-  width: 100%;
-  font-size: clamp(13px, 2.3vw, 46px);
-  font-weight: 700;
-  line-height: 1.05;
-  text-transform: uppercase;
+  min-width: 0;
 }
 
 h1 {
   width: 100%;
-  margin: 0.6vh 0 0;
-  font-size: clamp(19px, 4vw, 78px);
+  margin: 0;
+  font-size: clamp(14px, 3.6vw, 72px);
   font-weight: 900;
-  line-height: 0.95;
+  line-height: 1.05;
   letter-spacing: 0;
 }
 
 .temperature-box {
-  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 1.1vh 0.8vw;
-  border: 0.45vh solid rgba(255, 255, 255, 0.9);
+  margin: 0.6vh 0.6vw;
+  padding: 0.4vh 0.8vw;
+  border: 0.35vh solid rgba(255, 255, 255, 0.9);
   background: rgba(0, 0, 0, 0.22);
   text-align: center;
+  min-width: 10vw;
 }
 
 .temperature-label {
   width: 100%;
-  font-size: clamp(10px, 1.22vw, 26px);
+  font-size: clamp(8px, 1.1vw, 22px);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   text-transform: uppercase;
 }
 
 .temperature-value {
   width: 100%;
-  margin-top: 0.5vh;
-  font-size: clamp(22px, 5.1vw, 96px);
+  margin-top: 0.3vh;
+  font-size: clamp(18px, 4.2vw, 80px);
   font-weight: 900;
-  line-height: 0.95;
+  line-height: 1;
 }
 
 .temperature-status {
   width: 100%;
-  margin-top: 0.5vh;
-  font-size: clamp(9px, 1vw, 22px);
+  margin-top: 0.2vh;
+  font-size: clamp(8px, 0.9vw, 18px);
   font-weight: 700;
   line-height: 1.1;
   color: #d9ecff;
 }
 
+/* ─── FORECAST GRID ─── */
+
 .forecast-grid {
-  min-height: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.8vw;
   padding: 1vh 0.8vw;
   background: #111;
+  min-height: 0;
 }
 
 .forecast-card {
@@ -129,38 +131,41 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 0.55vh solid rgba(255, 255, 255, 0.88);
+  border: 0.45vh solid rgba(255, 255, 255, 0.88);
   text-align: center;
+  overflow: hidden;
 }
 
 .forecast-date {
   width: 100%;
   padding: 0 0.6vw;
-  font-size: clamp(17px, 3.45vw, 76px);
+  font-size: clamp(14px, 3.2vw, 68px);
   font-weight: 900;
   line-height: 1;
 }
 
 .forecast-level {
   width: 100%;
-  margin-top: 3vh;
+  margin-top: 2vh;
   padding: 0 0.6vw;
-  font-size: clamp(18px, 4.7vw, 110px);
+  font-size: clamp(16px, 4.4vw, 100px);
   font-weight: 900;
-  line-height: 0.98;
+  line-height: 1;
   text-transform: uppercase;
 }
 
+/* ─── FOOTER ─── */
+
 .risk-footer {
-  min-height: 0;
   display: grid;
-  grid-template-columns: 1fr 21vw;
+  grid-template-columns: 1fr auto;
   gap: 1vw;
   align-items: center;
   background: #1a1a1a;
-  border-top: 0.8vh solid #2d2d2d;
-  border-left: 2vw solid #555;
-  padding: 1vh 0.8vw 1vh 1.3vw;
+  border-top: 0.5vh solid #2d2d2d;
+  border-left: 1.8vw solid #555;
+  padding: 0.8vh 0.8vw 0.8vh 1.2vw;
+  min-height: 0;
 }
 
 .footer-copy {
@@ -168,28 +173,20 @@ h1 {
 }
 
 .max-risk-label {
-  font-size: clamp(15px, 2.55vw, 54px);
+  font-size: clamp(13px, 2.3vw, 48px);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.05;
   text-transform: uppercase;
 }
 
 .risk-description {
-  margin: 0.7vh 0 0;
-  font-size: clamp(12px, 1.65vw, 42px);
+  margin: 0.5vh 0 0;
+  font-size: clamp(10px, 1.5vw, 36px);
   font-weight: 800;
-  line-height: 1.12;
-}
-
-.bulletin-status {
-  margin-top: 0.6vh;
-  font-size: clamp(9px, 1.05vw, 24px);
-  font-weight: 700;
-  color: #cfcfcf;
+  line-height: 1.15;
 }
 
 .qr-panel {
-  min-width: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -197,11 +194,13 @@ h1 {
   justify-content: center;
   background: #fff;
   color: #111;
+  padding: 0.5vh 0.6vw;
+  min-width: 12vw;
 }
 
 .qr-code {
-  width: min(15vw, 18vh);
-  height: min(15vw, 18vh);
+  width: min(14vw, 16vh);
+  height: min(14vw, 16vh);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -221,7 +220,7 @@ h1 {
   justify-content: center;
   background: #ddd;
   color: #333;
-  font-size: clamp(12px, 1vw, 18px);
+  font-size: clamp(10px, 0.9vw, 16px);
   font-weight: 900;
   line-height: 1.05;
   text-align: center;
@@ -229,12 +228,14 @@ h1 {
 }
 
 .qr-label {
-  margin-top: 0.8vh;
-  font-size: clamp(8px, 0.95vw, 20px);
+  margin-top: 0.5vh;
+  font-size: clamp(7px, 0.85vw, 16px);
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
 }
+
+/* ─── Level colors ─── */
 
 .level-0 {
   background: #00aa00;
@@ -281,23 +282,142 @@ h1 {
   border-left-color: #555;
 }
 
-@media (max-width: 800px), (max-height: 480px) {
+/* ──────────────────────────────────────────────────────
+   VERTICAL / SQUARE PANEL  (aspect-ratio ≤ 1.1)
+   Stacks everything vertically for a portrait/square display
+   ────────────────────────────────────────────────────── */
+
+@media (max-aspect-ratio: 11/10) {
   .pmv-screen {
-    grid-template-rows: 21vh 50vh 29vh;
+    grid-template-rows: auto 1fr auto;
   }
 
+  /* Header: stack vertically */
   .header {
-    grid-template-columns: 20vw 1fr 22vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+    padding: 1vh 2vw;
+    gap: 0.5vh;
   }
 
+  .brand {
+    max-width: none;
+    min-width: 0;
+    justify-self: center;
+    width: 30vw;
+    max-height: 10vh;
+    padding: 0.5vh 2vw;
+  }
+
+  .logo {
+    max-height: 9vh;
+  }
+
+  .header-title {
+    padding: 0.2vh 1vw;
+  }
+
+  h1 {
+    font-size: clamp(14px, 5vw, 60px);
+  }
+
+  .temperature-box {
+    justify-self: center;
+    width: 50vw;
+    min-width: 0;
+    margin: 0.3vh auto;
+    padding: 0.4vh 1vw;
+  }
+
+  .temperature-label {
+    font-size: clamp(9px, 2.5vw, 20px);
+  }
+
+  .temperature-value {
+    font-size: clamp(18px, 8vw, 64px);
+  }
+
+  .temperature-status {
+    font-size: clamp(8px, 2vw, 16px);
+  }
+
+  /* Forecast grid: keep 3 cols but scale down text */
   .forecast-grid {
-    gap: 0.8vw;
-    padding: 1vh 0.8vw;
+    gap: 1.5vw;
+    padding: 1vh 1.5vw;
   }
 
+  .forecast-date {
+    font-size: clamp(12px, 4vw, 48px);
+  }
+
+  .forecast-level {
+    margin-top: 1.5vh;
+    font-size: clamp(14px, 5.5vw, 64px);
+  }
+
+  /* Footer: stack for vertical */
   .risk-footer {
-    grid-template-columns: 1fr 22vw;
-    gap: 0.7vw;
-    padding: 0.8vh 0.7vw 0.8vh 1vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    border-left-width: 0;
+    border-top-width: 0.6vh;
+    padding: 1vh 2vw;
+    gap: 0.5vh;
+  }
+
+  .max-risk-label {
+    font-size: clamp(12px, 3.5vw, 40px);
+    text-align: center;
+  }
+
+  .risk-description {
+    font-size: clamp(10px, 2.5vw, 28px);
+    text-align: center;
+  }
+
+  .qr-panel {
+    flex-direction: row;
+    gap: 2vw;
+    padding: 0.6vh 2vw;
+    min-width: 0;
+  }
+
+  .qr-code {
+    width: min(18vw, 10vh);
+    height: min(18vw, 10vh);
+  }
+
+  .qr-label {
+    margin-top: 0;
+    font-size: clamp(9px, 2vw, 18px);
+  }
+}
+
+/* ──────────────────────────────────────────────────────
+   VERY SMALL SCREENS  (< 400px wide or < 300px tall)
+   ────────────────────────────────────────────────────── */
+
+@media (max-width: 400px), (max-height: 300px) {
+  h1 {
+    font-size: clamp(12px, 4vw, 36px);
+  }
+
+  .forecast-date {
+    font-size: clamp(10px, 3vw, 32px);
+  }
+
+  .forecast-level {
+    font-size: clamp(12px, 4vw, 48px);
+    margin-top: 1vh;
+  }
+
+  .max-risk-label {
+    font-size: clamp(10px, 2.2vw, 28px);
+  }
+
+  .risk-description {
+    font-size: clamp(9px, 1.4vw, 22px);
   }
 }

@@ -25,7 +25,7 @@ const forecastGrid = document.getElementById("forecast-grid");
 const riskFooter = document.getElementById("risk-footer");
 const maxRiskLabel = document.getElementById("max-risk-label");
 const riskDescription = document.getElementById("risk-description");
-const bulletinStatus = document.getElementById("bulletin-status");
+
 const qrCode = document.getElementById("qr-code");
 const currentTemperature = document.getElementById("current-temperature");
 const temperatureStatus = document.getElementById("temperature-status");
@@ -180,7 +180,7 @@ function renderQrCode(pdfUrl) {
   });
 }
 
-function renderBulletin(items, statusText) {
+function renderBulletin(items) {
   const cards = Array.from(forecastGrid.querySelectorAll(".forecast-card"));
   const visibleItems = items.slice(0, 3);
 
@@ -196,7 +196,6 @@ function renderBulletin(items, statusText) {
     setFooterBorder(null);
     maxRiskLabel.textContent = "Livello massimo: dato non disponibile";
     riskDescription.textContent = "Bollettino temporaneamente non disponibile. Le informazioni saranno aggiornate automaticamente.";
-    bulletinStatus.textContent = statusText || "Dati non disponibili";
     renderQrCode("");
     return;
   }
@@ -207,14 +206,11 @@ function renderBulletin(items, statusText) {
   setFooterBorder(maxLevel);
   maxRiskLabel.textContent = `Livello massimo previsto: ${LEVEL_LABELS[maxLevel]}`;
   riskDescription.textContent = RISK_TEXTS[maxLevel];
-  bulletinStatus.textContent = statusText;
   renderQrCode(pdfUrl);
 }
 
 async function fetchBulletin() {
   try {
-    bulletinStatus.textContent = "Aggiornamento bollettino in corso";
-
     const response = await fetch(`${BULLETIN_CSV_URL}?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -227,7 +223,7 @@ async function fetchBulletin() {
       .sort((a, b) => a.date.localeCompare(b.date));
 
     if (anconaRows.length === 0) {
-      renderBulletin([], "Nessun dato disponibile per Ancona");
+      renderBulletin([]);
       return;
     }
 
@@ -240,10 +236,10 @@ async function fetchBulletin() {
       })
       .slice(0, 3);
 
-    renderBulletin(latestRows.length > 0 ? latestRows : anconaRows.slice(-3), `Ultimo aggiornamento: ${new Date().toLocaleString("it-IT")}`);
+    renderBulletin(latestRows.length > 0 ? latestRows : anconaRows.slice(-3));
   } catch (error) {
     console.error("Errore durante il recupero del bollettino:", error);
-    renderBulletin([], "Errore nel recupero del bollettino. Nuovo tentativo automatico previsto.");
+    renderBulletin([]);
   }
 }
 
