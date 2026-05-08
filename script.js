@@ -4,11 +4,31 @@ const CITY = "ANCONA";
 const BULLETIN_REFRESH_MS = 60 * 60 * 1000;
 const TEMPERATURE_REFRESH_MS = 15 * 60 * 1000;
 
-const RISK_TEXTS = {
-  0: "Condizioni meteorologiche non a rischio per la salute della popolazione.",
-  1: "Condizioni meteorologiche che possono precedere un livello 2. Pre-Allerta dei servizi sanitari e sociali.",
-  2: "Temperature elevate e condizioni meteorologiche che possono avere effetti negativi sulla salute della popolazione, in particolare nei sottogruppi suscettibili. Allerta dei servizi sanitari.",
-  3: "Ondata di calore. Condizioni ad elevato rischio che persistono per 3 o più giorni consecutivi. Allerta dei servizi sanitari e sociali."
+const RISK_TIPS = {
+  // Livello 0 (Verde): Condizioni ordinarie, nessun rischio imminente
+  0: [
+    "Bere almeno 1,5/2 litri d'acqua al giorno e consumare pasti leggeri a base di frutta e verdura.",
+    "Indossare indumenti chiari in fibre naturali e applicare la protezione solare durante le attività all'aperto.",
+    "Assicurarsi che gli animali domestici abbiano sempre accesso ad acqua fresca, pulita e a zone d'ombra."
+  ],
+  // Livello 1 (Giallo): Pre-allerta, rischio per i soggetti più fragili
+  1: [
+    "Limitare l'esposizione al sole e le attività fisiche intense all'aperto nella fascia oraria 11:00–18:00.",
+    "Prestare attenzione ai soggetti vulnerabili (anziani, bambini piccoli, malati cronici), assicurandosi che siano idratati.",
+    "Tutelare gli animali domestici: evitare le passeggiate sull'asfalto rovente nelle ore centrali della giornata."
+  ],
+  // Livello 2 (Arancione): Rischio per la salute della popolazione generale
+  2: [
+    "Evitare di uscire all'aperto tra le 11:00 e le 18:00. Frequentare ambienti climatizzati o ben ventilati.",
+    "Aumentare l'assunzione di liquidi, evitando categoricamente alcolici e bevande ghiacciate o zuccherate.",
+    "Non lasciare mai, per nessun motivo, persone o animali all'interno di autovetture parcheggiate al sole."
+  ],
+  // Livello 3 (Rosso): Emergenza, rischio elevato per tutta la popolazione
+  3: [
+    "Restare in casa o in ambienti raffrescati, oscurando le finestre esposte al sole durante le ore diurne.",
+    "Monitorare costantemente i soggetti a rischio. In caso di malore o sintomi da colpo di calore, contattare subito il 112 o il 118.",
+    "Emergenza animali: mantenerli in luoghi freschi, bagnarli se mostrano affanno eccessivo e contattare il veterinario se necessario."
+  ]
 };
 
 const LEVEL_LABELS = {
@@ -180,6 +200,21 @@ function renderQrCode(pdfUrl) {
   });
 }
 
+function renderTips(tips) {
+  riskDescription.innerHTML = "";
+  if (!tips || tips.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Bollettino temporaneamente non disponibile";
+    riskDescription.appendChild(li);
+    return;
+  }
+  tips.forEach((tip) => {
+    const li = document.createElement("li");
+    li.textContent = tip;
+    riskDescription.appendChild(li);
+  });
+}
+
 function renderBulletin(items) {
   const cards = Array.from(forecastGrid.querySelectorAll(".forecast-card"));
   const visibleItems = items.slice(0, 3);
@@ -195,17 +230,17 @@ function renderBulletin(items) {
   if (validLevels.length === 0) {
     setFooterBorder(null);
     maxRiskLabel.textContent = "Livello massimo: dato non disponibile";
-    riskDescription.textContent = "Bollettino temporaneamente non disponibile. Le informazioni saranno aggiornate automaticamente.";
+    renderTips(null);
     renderQrCode("");
     return;
   }
 
-  const maxLevel = Math.max(...validLevels);
+  const todayLevel = parseLevel(visibleItems[0]?.level);
   const pdfUrl = visibleItems.find((item) => item?.pdfUrl)?.pdfUrl || "";
 
-  setFooterBorder(maxLevel);
-  maxRiskLabel.textContent = `Livello massimo previsto: ${LEVEL_LABELS[maxLevel]}`;
-  riskDescription.textContent = RISK_TEXTS[maxLevel];
+  setFooterBorder(todayLevel);
+  maxRiskLabel.textContent = `Livello previsto per oggi: ${LEVEL_LABELS[todayLevel] ?? "Dato non disponibile"}`;
+  renderTips(Number.isInteger(todayLevel) ? RISK_TIPS[todayLevel] : null);
   renderQrCode(pdfUrl);
 }
 

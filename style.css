@@ -17,13 +17,17 @@ body {
   color: #fff;
 }
 
-/* ─── Main Layout ─── */
+/* ─── Main Layout ───
+   header = auto (shrink-to-fit)
+   forecast = compact (40%)
+   footer = generous (remaining space for QR + tips)
+   ─── */
 
 .pmv-screen {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 3fr 2fr;
   background: #111;
 }
 
@@ -113,13 +117,13 @@ h1 {
   color: #d9ecff;
 }
 
-/* ─── FORECAST GRID ─── */
+/* ─── FORECAST GRID (compact) ─── */
 
 .forecast-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.8vw;
-  padding: 1vh 0.8vw;
+  padding: 0.6vh 0.8vw;
   background: #111;
   min-height: 0;
 }
@@ -146,45 +150,66 @@ h1 {
 
 .forecast-level {
   width: 100%;
-  margin-top: 2vh;
+  margin-top: 1.2vh;
   padding: 0 0.6vw;
-  font-size: clamp(16px, 4.4vw, 100px);
+  font-size: clamp(18px, 4.8vw, 110px);
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
 }
 
-/* ─── FOOTER ─── */
+/* ─── FOOTER (generous — tips + QR) ─── */
 
 .risk-footer {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 1vw;
+  gap: 1.2vw;
   align-items: center;
   background: #1a1a1a;
   border-top: 0.5vh solid #2d2d2d;
   border-left: 1.8vw solid #555;
-  padding: 0.8vh 0.8vw 0.8vh 1.2vw;
+  padding: 1.2vh 1vw 1.2vh 1.4vw;
   min-height: 0;
+  overflow: hidden;
 }
 
 .footer-copy {
   min-width: 0;
+  overflow: hidden;
 }
 
 .max-risk-label {
   font-size: clamp(13px, 2.3vw, 48px);
   font-weight: 900;
-  line-height: 1.05;
+  line-height: 1.1;
   text-transform: uppercase;
 }
 
+/* Bullet-point tips list */
 .risk-description {
-  margin: 0.5vh 0 0;
-  font-size: clamp(10px, 1.5vw, 36px);
-  font-weight: 800;
-  line-height: 1.15;
+  margin: 0.6vh 0 0;
+  padding: 0 0 0 1.6vw;
+  list-style: none;
 }
+
+.risk-description li {
+  position: relative;
+  padding-left: 1.4vw;
+  margin-bottom: 0.4vh;
+  font-size: clamp(14px, 1.85vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.risk-description li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #ffc107;
+  font-weight: 900;
+}
+
+/* ─── QR Panel (bigger) ─── */
 
 .qr-panel {
   height: 100%;
@@ -194,13 +219,15 @@ h1 {
   justify-content: center;
   background: #fff;
   color: #111;
-  padding: 0.5vh 0.6vw;
-  min-width: 12vw;
+  padding: 1vh 1vw;
+  min-width: 18vw;
 }
 
 .qr-code {
-  width: min(14vw, 16vh);
-  height: min(14vw, 16vh);
+  width: min(16vw, 24vh);
+  height: min(16vw, 24vh);
+  min-width: 120px;
+  min-height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,8 +255,8 @@ h1 {
 }
 
 .qr-label {
-  margin-top: 0.5vh;
-  font-size: clamp(7px, 0.85vw, 16px);
+  margin-top: 0.6vh;
+  font-size: clamp(8px, 1vw, 18px);
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
@@ -284,7 +311,6 @@ h1 {
 
 /* ──────────────────────────────────────────────────────
    VERTICAL / SQUARE PANEL  (aspect-ratio ≤ 1.1)
-   Stacks everything vertically for a portrait/square display
    ────────────────────────────────────────────────────── */
 
 @media (max-aspect-ratio: 11/10) {
@@ -342,28 +368,28 @@ h1 {
     font-size: clamp(8px, 2vw, 16px);
   }
 
-  /* Forecast grid: keep 3 cols but scale down text */
+  /* Forecast grid: keep 3 cols but scale down */
   .forecast-grid {
     gap: 1.5vw;
-    padding: 1vh 1.5vw;
+    padding: 0.6vh 1.5vw;
   }
 
   .forecast-date {
-    font-size: clamp(12px, 4vw, 48px);
+    font-size: clamp(11px, 3.5vw, 40px);
   }
 
   .forecast-level {
-    margin-top: 1.5vh;
-    font-size: clamp(14px, 5.5vw, 64px);
+    margin-top: 1vh;
+    font-size: clamp(13px, 5vw, 56px);
   }
 
-  /* Footer: stack for vertical */
+  /* Footer: stack vertically */
   .risk-footer {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     border-left-width: 0;
     border-top-width: 0.6vh;
-    padding: 1vh 2vw;
+    padding: 1vh 3vw;
     gap: 0.5vh;
   }
 
@@ -373,25 +399,32 @@ h1 {
   }
 
   .risk-description {
-    font-size: clamp(10px, 2.5vw, 28px);
-    text-align: center;
+    padding-left: 4vw;
+  }
+
+  .risk-description li {
+    font-size: clamp(14px, 3.2vw, 32px);
+    padding-left: 3vw;
+    margin-bottom: 0.3vh;
   }
 
   .qr-panel {
     flex-direction: row;
-    gap: 2vw;
-    padding: 0.6vh 2vw;
+    gap: 3vw;
+    padding: 0.8vh 3vw;
     min-width: 0;
   }
 
   .qr-code {
-    width: min(18vw, 10vh);
-    height: min(18vw, 10vh);
+    width: min(20vw, 12vh);
+    height: min(20vw, 12vh);
+    min-width: 80px;
+    min-height: 80px;
   }
 
   .qr-label {
     margin-top: 0;
-    font-size: clamp(9px, 2vw, 18px);
+    font-size: clamp(9px, 2.2vw, 18px);
   }
 }
 
@@ -410,14 +443,14 @@ h1 {
 
   .forecast-level {
     font-size: clamp(12px, 4vw, 48px);
-    margin-top: 1vh;
+    margin-top: 0.8vh;
   }
 
   .max-risk-label {
     font-size: clamp(10px, 2.2vw, 28px);
   }
 
-  .risk-description {
-    font-size: clamp(9px, 1.4vw, 22px);
+  .risk-description li {
+    font-size: clamp(11px, 1.8vw, 22px);
   }
 }
