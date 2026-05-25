@@ -9,228 +9,191 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #111;
+  background: #000000;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  color: #ffffff;
 }
 
-body {
-  color: #fff;
-}
-
-/* ─── Main Layout ───
-   header = auto (shrink-to-fit)
-   forecast = compact (40%)
-   footer = generous (remaining space for QR + tips)
-   ─── */
-
+/* ─── Main Layout ─── */
 .pmv-screen {
   width: 100vw;
   height: 100vh;
-  display: grid;
-  grid-template-rows: auto 3fr 2fr;
-  background: #111;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 2vw;
+  background: #000000;
 }
 
 /* ─── HEADER ─── */
-
 .header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: stretch;
-  background: #003366;
-  border-bottom: 0.5vh solid #071b2f;
-  padding: 0.6vh 0;
-}
-
-.brand {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  padding: 0.4vh 0.6vw;
-  min-width: 6vw;
-  max-width: 14vw;
+  flex-direction: column;
+  margin-bottom: 2vh;
 }
 
-.logo {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-height: 12vh;
-  object-fit: contain;
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 700;
+  margin-bottom: 2vh;
+}
+
+.date-text,
+.time-text {
+  color: #ffffff;
 }
 
 .header-title {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 0.4vh 1.2vw;
+  align-items: center;
   text-align: center;
-  min-width: 0;
 }
 
 h1 {
-  width: 100%;
   margin: 0;
-  font-size: clamp(14px, 3.6vw, 72px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: 0;
-}
-
-.temperature-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0.6vh 0.6vw;
-  padding: 0.4vh 0.8vw;
-  border: 0.35vh solid rgba(255, 255, 255, 0.9);
-  background: rgba(0, 0, 0, 0.22);
-  text-align: center;
-  min-width: 10vw;
-}
-
-.temperature-label {
-  width: 100%;
-  font-size: clamp(8px, 1.1vw, 22px);
+  font-size: clamp(32px, 5vw, 64px);
   font-weight: 800;
-  line-height: 1.15;
   text-transform: uppercase;
 }
 
-.temperature-value {
-  width: 100%;
-  margin-top: 0.3vh;
-  font-size: clamp(18px, 4.2vw, 80px);
-  font-weight: 900;
-  line-height: 1;
+.highlight-city {
+  color: #00DB00;
 }
 
-.temperature-status {
-  width: 100%;
-  margin-top: 0.2vh;
-  font-size: clamp(8px, 0.9vw, 18px);
-  font-weight: 700;
-  line-height: 1.1;
-  color: #d9ecff;
-}
-
-/* ─── FORECAST GRID (compact) ─── */
-
+/* ─── FORECAST GRID (3-column) ─── */
 .forecast-grid {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.8vw;
-  padding: 0.6vh 0.8vw;
-  background: #111;
-  min-height: 0;
+  gap: 2vw;
+  margin-bottom: 2vh;
 }
 
-.forecast-card {
-  min-width: 0;
-  min-height: 0;
+/* ─── CARDS ─── */
+.alert-card {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  background: #000000;
+  border: none;
+  padding: 0;
+  height: 100%;
+}
+
+.alert-icon-box {
+  flex: 0 0 auto;
+  width: 25%;
+  height: 80%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.45vh solid rgba(255, 255, 255, 0.88);
-  text-align: center;
-  overflow: hidden;
+  border: 4px solid #555555;
+  border-radius: 6px;
+  margin-right: 2vw;
 }
 
-.forecast-date {
-  width: 100%;
-  padding: 0 0.6vw;
-  font-size: clamp(14px, 3.2vw, 68px);
-  font-weight: 900;
-  line-height: 1;
+.alert-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.forecast-level {
-  width: 100%;
-  margin-top: 1.2vh;
-  padding: 0 0.6vw;
-  font-size: clamp(18px, 4.8vw, 110px);
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-/* ─── FOOTER (generous — tips + QR) ─── */
-
-.risk-footer {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.2vw;
+.alert-title {
+  font-size: clamp(24px, 4vw, 64px);
+  font-weight: 800;
+  margin-bottom: 0.5vh;
+  display: flex;
   align-items: center;
-  background: #1a1a1a;
-  border-top: 0.5vh solid #2d2d2d;
-  border-left: 1.8vw solid #555;
-  padding: 1.2vh 1vw 1.2vh 1.4vw;
-  min-height: 0;
-  overflow: hidden;
 }
 
-.footer-copy {
-  min-width: 0;
-  overflow: hidden;
-}
 
-.max-risk-label {
-  font-size: clamp(13px, 2.3vw, 48px);
-  font-weight: 900;
-  line-height: 1.1;
-  text-transform: uppercase;
-}
 
-/* Bullet-point tips list */
-.risk-description {
-  margin: 0.6vh 0 0;
-  padding: 0 0 0 1.6vw;
-  list-style: none;
-}
-
-.risk-description li {
-  position: relative;
-  padding-left: 1.4vw;
-  margin-bottom: 0.4vh;
-  font-size: clamp(14px, 1.85vw, 42px);
+.alert-status {
+  font-size: clamp(16px, 2.5vw, 42px);
   font-weight: 700;
-  line-height: 1.2;
+  color: #aaaaaa;
 }
 
-.risk-description li::before {
-  content: "▸";
-  position: absolute;
-  left: 0;
-  color: #ffc107;
-  font-weight: 900;
+/* Level Borders & Thermometer Colors */
+.level-0 .alert-icon-box { border-color: #00DB00; }
+.level-1 .alert-icon-box { border-color: #FFD800; }
+.level-2 .alert-icon-box { border-color: #FF8C00; }
+.level-3 .alert-icon-box { border-color: #E00000; }
+.level-missing .alert-icon-box { border-color: #555555; }
+
+.level-0 .alert-title { color: #00DB00; }
+.level-1 .alert-title { color: #FFD800; }
+.level-2 .alert-title { color: #FF8C00; }
+.level-3 .alert-title { color: #E00000; }
+.level-missing .alert-title { color: #555555; }
+
+.level-0 .thermo-liquid { stroke: #00DB00; }
+.level-0 .thermo-bulb-liquid { fill: #00DB00; }
+.level-1 .thermo-liquid { stroke: #FFD800; }
+.level-1 .thermo-bulb-liquid { fill: #FFD800; }
+.level-2 .thermo-liquid { stroke: #FF8C00; }
+.level-2 .thermo-bulb-liquid { fill: #FF8C00; }
+.level-3 .thermo-liquid { stroke: #E00000; }
+.level-3 .thermo-bulb-liquid { fill: #E00000; }
+.level-missing .thermo-liquid { stroke: #555555; }
+.level-missing .thermo-bulb-liquid { fill: #555555; }
+
+/* ─── FOOTER ─── */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to top so the labels start at the same height */
+  padding-top: 2vh;
+  height: 25%;
 }
 
-/* ─── QR Panel (bigger) ─── */
+.footer-temperature {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.temp-label {
+  font-size: clamp(16px, 2vw, 36px);
+  font-weight: 800;
+  color: #ffffff; /* White */
+  text-transform: uppercase;
+  margin-bottom: 1vh;
+}
+
+.temp-value {
+  font-size: clamp(36px, 6vw, 96px);
+  font-weight: 800;
+  color: #ffffff;
+}
 
 .qr-panel {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  color: #111;
-  padding: 1vh 1vw;
-  min-width: 18vw;
+  align-items: center; /* Center items (title and QR code) horizontally relative to each other */
+  justify-content: flex-start;
+  gap: 1vh;
+}
+
+.qr-title {
+  font-size: clamp(16px, 2vw, 36px);
+  font-weight: 800;
+  color: #ffffff; /* White */
+  text-transform: uppercase;
+  margin-bottom: 0px;
 }
 
 .qr-code {
-  width: min(16vw, 24vh);
-  height: min(16vw, 24vh);
-  min-width: 120px;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: min(14vw, 18vh);
+  height: min(14vw, 18vh);
+  min-width: 80px;
+  min-height: 80px;
+  background: white;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .qr-code img,
@@ -239,218 +202,28 @@ h1 {
   height: 100%;
 }
 
-.qr-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ddd;
-  color: #333;
-  font-size: clamp(10px, 0.9vw, 16px);
-  font-weight: 900;
-  line-height: 1.05;
-  text-align: center;
-  text-transform: uppercase;
+/* ─── ANIMATED THERMOMETER ─── */
+.thermometer-icon {
+  width: 60%;
+  height: 90%;
 }
 
-.qr-label {
-  margin-top: 0.6vh;
-  font-size: clamp(8px, 1vw, 18px);
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
+/* The liquid stroke-dasharray animation */
+.thermo-liquid {
+  stroke-dasharray: 50; /* length of line from 80 to 30 is 50 */
+  animation: liquid-up-down 3s infinite ease-in-out;
 }
 
-/* ─── Level colors ─── */
-
-.level-0 {
-  background: #00aa00;
-  color: #fff;
+@keyframes liquid-up-down {
+  0% { stroke-dashoffset: 50; }  /* Empty */
+  50% { stroke-dashoffset: 0; }  /* Full */
+  100% { stroke-dashoffset: 50; } /* Empty */
 }
 
-.level-1 {
-  background: #ffcc00;
-  color: #000;
-}
-
-.level-2 {
-  background: #ff6600;
-  color: #000;
-}
-
-.level-3 {
-  background: #cc0000;
-  color: #fff;
-}
-
-.level-missing {
-  background: #555;
-  color: #fff;
-}
-
-.level-border-0 {
-  border-left-color: #00aa00;
-}
-
-.level-border-1 {
-  border-left-color: #ffcc00;
-}
-
-.level-border-2 {
-  border-left-color: #ff6600;
-}
-
-.level-border-3 {
-  border-left-color: #cc0000;
-}
-
-.level-border-missing {
-  border-left-color: #555;
-}
-
-/* ──────────────────────────────────────────────────────
-   VERTICAL / SQUARE PANEL  (aspect-ratio ≤ 1.1)
-   ────────────────────────────────────────────────────── */
-
-@media (max-aspect-ratio: 11/10) {
-  .pmv-screen {
-    grid-template-rows: auto 1fr auto;
-  }
-
-  /* Header: stack vertically */
-  .header {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    text-align: center;
-    padding: 1vh 2vw;
-    gap: 0.5vh;
-  }
-
-  .brand {
-    max-width: none;
-    min-width: 0;
-    justify-self: center;
-    width: 30vw;
-    max-height: 10vh;
-    padding: 0.5vh 2vw;
-  }
-
-  .logo {
-    max-height: 9vh;
-  }
-
-  .header-title {
-    padding: 0.2vh 1vw;
-  }
-
-  h1 {
-    font-size: clamp(14px, 5vw, 60px);
-  }
-
-  .temperature-box {
-    justify-self: center;
-    width: 50vw;
-    min-width: 0;
-    margin: 0.3vh auto;
-    padding: 0.4vh 1vw;
-  }
-
-  .temperature-label {
-    font-size: clamp(9px, 2.5vw, 20px);
-  }
-
-  .temperature-value {
-    font-size: clamp(18px, 8vw, 64px);
-  }
-
-  .temperature-status {
-    font-size: clamp(8px, 2vw, 16px);
-  }
-
-  /* Forecast grid: keep 3 cols but scale down */
+/* Responsive adjustments */
+@media (max-aspect-ratio: 1/1) {
   .forecast-grid {
-    gap: 1.5vw;
-    padding: 0.6vh 1.5vw;
-  }
-
-  .forecast-date {
-    font-size: clamp(11px, 3.5vw, 40px);
-  }
-
-  .forecast-level {
-    margin-top: 1vh;
-    font-size: clamp(13px, 5vw, 56px);
-  }
-
-  /* Footer: stack vertically */
-  .risk-footer {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-    border-left-width: 0;
-    border-top-width: 0.6vh;
-    padding: 1vh 3vw;
-    gap: 0.5vh;
-  }
-
-  .max-risk-label {
-    font-size: clamp(12px, 3.5vw, 40px);
-    text-align: center;
-  }
-
-  .risk-description {
-    padding-left: 4vw;
-  }
-
-  .risk-description li {
-    font-size: clamp(14px, 3.2vw, 32px);
-    padding-left: 3vw;
-    margin-bottom: 0.3vh;
-  }
-
-  .qr-panel {
-    flex-direction: row;
-    gap: 3vw;
-    padding: 0.8vh 3vw;
-    min-width: 0;
-  }
-
-  .qr-code {
-    width: min(20vw, 12vh);
-    height: min(20vw, 12vh);
-    min-width: 80px;
-    min-height: 80px;
-  }
-
-  .qr-label {
-    margin-top: 0;
-    font-size: clamp(9px, 2.2vw, 18px);
-  }
-}
-
-/* ──────────────────────────────────────────────────────
-   VERY SMALL SCREENS  (< 400px wide or < 300px tall)
-   ────────────────────────────────────────────────────── */
-
-@media (max-width: 400px), (max-height: 300px) {
-  h1 {
-    font-size: clamp(12px, 4vw, 36px);
-  }
-
-  .forecast-date {
-    font-size: clamp(10px, 3vw, 32px);
-  }
-
-  .forecast-level {
-    font-size: clamp(12px, 4vw, 48px);
-    margin-top: 0.8vh;
-  }
-
-  .max-risk-label {
-    font-size: clamp(10px, 2.2vw, 28px);
-  }
-
-  .risk-description li {
-    font-size: clamp(11px, 1.8vw, 22px);
+    grid-template-rows: repeat(3, 1fr);
   }
 }

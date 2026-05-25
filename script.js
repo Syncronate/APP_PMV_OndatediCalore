@@ -4,53 +4,38 @@ const CITY = "ANCONA";
 const BULLETIN_REFRESH_MS = 60 * 60 * 1000;
 const TEMPERATURE_REFRESH_MS = 15 * 60 * 1000;
 
-const RISK_TIPS = {
-  // Livello 0 (Verde): Condizioni ordinarie, nessun rischio imminente
-  // Livello 0 (Verde)
-  0: [
-    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
-    "All'aperto usare protezione solare e abiti chiari e leggeri.",
-    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
-  ],
-  // Livello 1 (Giallo)
-  1: [
-    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
-    "All'aperto usare protezione solare e abiti chiari e leggeri.",
-    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
-  ],
-  // Livello 2 (Arancione)
-  2: [
-    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
-    "All'aperto usare protezione solare e abiti chiari e leggeri.",
-    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
-  ],
-  // Livello 3 (Rosso)
-  3: [
-    "Bere 2 litri d'acqua al giorno e preferire pasti leggeri.",
-    "All'aperto usare protezione solare e abiti chiari e leggeri.",
-    "Garantire agli animali ombra e acqua fresca sempre a disposizione."
-  ]
-};
-
 const LEVEL_LABELS = {
-  0: "Livello 0",
-  1: "Livello 1",
-  2: "Livello 2",
-  3: "Livello 3"
+  0: "NESSUNA ALLERTA",
+  1: "ALLERTA LIVELLO 1",
+  2: "ALLERTA LIVELLO 2",
+  3: "ALLERTA LIVELLO 3"
 };
 
 const LEVEL_CLASSES = ["level-0", "level-1", "level-2", "level-3", "level-missing"];
-const BORDER_CLASSES = ["level-border-0", "level-border-1", "level-border-2", "level-border-3", "level-border-missing"];
 
-const forecastGrid = document.getElementById("forecast-grid");
-const riskFooter = document.getElementById("risk-footer");
-const maxRiskLabel = document.getElementById("max-risk-label");
-const riskDescription = document.getElementById("risk-description");
+// DOM Elements
+const currentDateEl = document.getElementById("current-date");
+const currentTimeEl = document.getElementById("current-time");
+const currentTempEl = document.getElementById("current-temperature");
+const qrCodeEl = document.getElementById("qr-code");
 
-const qrCode = document.getElementById("qr-code");
-const currentTemperature = document.getElementById("current-temperature");
-const temperatureStatus = document.getElementById("temperature-status");
+const MONTHS = ["GEN", "FEB", "MAR", "APR", "MAG", "GIU", "LUG", "AGO", "SET", "OTT", "NOV", "DIC"];
+const DAYS = ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"];
 
+function updateClock() {
+  const now = new Date();
+  const dayName = DAYS[now.getDay()];
+  const day = now.getDate().toString().padStart(2, '0');
+  const monthName = MONTHS[now.getMonth()];
+  
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+
+  currentDateEl.textContent = `${dayName} ${day} ${monthName}`;
+  currentTimeEl.textContent = `${hours}:${minutes}`;
+}
+
+// CSV Parsing
 function parseCsv(text) {
   const rows = [];
   let row = [];
@@ -81,7 +66,6 @@ function parseCsv(text) {
       if (char === "\r" && nextChar === "\n") {
         index += 1;
       }
-
       row.push(value.trim());
       if (row.some(Boolean)) {
         rows.push(row);
@@ -90,30 +74,21 @@ function parseCsv(text) {
       value = "";
       continue;
     }
-
     value += char;
   }
-
   row.push(value.trim());
   if (row.some(Boolean)) {
     rows.push(row);
   }
-
   return rows;
 }
 
 function normalizeHeader(header) {
-  return header
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]/g, "");
+  return header.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
 }
 
 function mapCsvRows(rows) {
-  if (rows.length === 0) {
-    return [];
-  }
+  if (rows.length === 0) return [];
 
   const header = rows[0].map(normalizeHeader);
   const indexes = {
@@ -140,11 +115,8 @@ function mapCsvRows(rows) {
 
 function formatDate(isoDate) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoDate);
-  if (!match) {
-    return "--/--/----";
-  }
-
-  return `${match[3]}/${match[2]}/${match[1]}`;
+  if (!match) return "--/--";
+  return `${match[3]}/${match[2]}`; // DD/MM to fit better
 }
 
 function getLevelClass(level) {
@@ -156,101 +128,55 @@ function parseLevel(rawLevel) {
   return match ? Number.parseInt(match[0], 10) : null;
 }
 
-function setCardState(card, item) {
-  const level = parseLevel(item?.level);
-  const validLevel = Number.isInteger(level) && level >= 0 && level <= 3;
-
-  card.classList.remove(...LEVEL_CLASSES);
-  card.classList.add(getLevelClass(validLevel ? level : null));
-
-  card.querySelector(".forecast-date").textContent = item?.date ? formatDate(item.date) : "--/--/----";
-  card.querySelector(".forecast-level").textContent = validLevel ? LEVEL_LABELS[level] : "Dato non disponibile";
-}
-
-function setFooterBorder(level) {
-  riskFooter.classList.remove(...BORDER_CLASSES);
-  riskFooter.classList.add(Number.isInteger(level) ? `level-border-${level}` : "level-border-missing");
-}
-
 function renderQrCode(pdfUrl) {
-  qrCode.innerHTML = "";
+  qrCodeEl.innerHTML = "";
+  if (!pdfUrl) return;
 
-  if (!pdfUrl) {
-    const placeholder = document.createElement("div");
-    placeholder.className = "qr-placeholder";
-    placeholder.textContent = "PDF non disponibile";
-    qrCode.appendChild(placeholder);
-    return;
+  if (typeof QRCode !== "undefined") {
+    new QRCode(qrCodeEl, {
+      text: pdfUrl,
+      width: 100,
+      height: 100,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
   }
-
-  if (typeof QRCode === "undefined") {
-    const link = document.createElement("div");
-    link.className = "qr-placeholder";
-    link.textContent = "QR non disponibile";
-    qrCode.appendChild(link);
-    return;
-  }
-
-  new QRCode(qrCode, {
-    text: pdfUrl,
-    width: 240,
-    height: 240,
-    colorDark: "#000000",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.M
-  });
-}
-
-function renderTips(tips) {
-  riskDescription.innerHTML = "";
-  if (!tips || tips.length === 0) {
-    const li = document.createElement("li");
-    li.textContent = "Bollettino temporaneamente non disponibile";
-    riskDescription.appendChild(li);
-    return;
-  }
-  tips.forEach((tip) => {
-    const li = document.createElement("li");
-    li.textContent = tip;
-    riskDescription.appendChild(li);
-  });
 }
 
 function renderBulletin(items) {
-  const cards = Array.from(forecastGrid.querySelectorAll(".forecast-card"));
   const visibleItems = items.slice(0, 3);
+  let pdfUrl = "";
 
-  cards.forEach((card, index) => {
-    setCardState(card, visibleItems[index]);
-  });
+  for (let i = 0; i < 3; i++) {
+    const card = document.getElementById(`card-${i}`);
+    const dateEl = document.getElementById(`date-${i}`);
+    const statusEl = document.getElementById(`status-${i}`);
+    
+    if (!card) continue;
 
-  const validLevels = visibleItems
-    .map((item) => parseLevel(item?.level))
-    .filter((level) => Number.isInteger(level) && level >= 0 && level <= 3);
+    const item = visibleItems[i];
+    const level = parseLevel(item?.level);
+    const validLevel = Number.isInteger(level) && level >= 0 && level <= 3;
 
-  if (validLevels.length === 0) {
-    setFooterBorder(null);
-    maxRiskLabel.textContent = "Livello massimo: dato non disponibile";
-    renderTips(null);
-    renderQrCode("");
-    return;
+    card.classList.remove(...LEVEL_CLASSES);
+    card.classList.add(getLevelClass(validLevel ? level : null));
+
+    dateEl.textContent = item?.date ? formatDate(item.date) : "--/--";
+    statusEl.textContent = validLevel ? LEVEL_LABELS[level] : "DATO NON DISPONIBILE";
+    
+    if (item?.pdfUrl) {
+        pdfUrl = item.pdfUrl;
+    }
   }
 
-  const todayLevel = parseLevel(visibleItems[0]?.level);
-  const pdfUrl = visibleItems.find((item) => item?.pdfUrl)?.pdfUrl || "";
-
-  setFooterBorder(todayLevel);
-  maxRiskLabel.textContent = `Livello previsto per oggi: ${LEVEL_LABELS[todayLevel] ?? "Dato non disponibile"}`;
-  renderTips(Number.isInteger(todayLevel) ? RISK_TIPS[todayLevel] : null);
   renderQrCode(pdfUrl);
 }
 
 async function fetchBulletin() {
   try {
     const response = await fetch(`${BULLETIN_CSV_URL}?t=${Date.now()}`, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const csvText = await response.text();
     const rows = mapCsvRows(parseCsv(csvText));
@@ -274,37 +200,33 @@ async function fetchBulletin() {
 
     renderBulletin(latestRows.length > 0 ? latestRows : anconaRows.slice(-3));
   } catch (error) {
-    console.error("Errore durante il recupero del bollettino:", error);
+    console.error("Errore bollettino:", error);
     renderBulletin([]);
   }
 }
 
 async function fetchTemperature() {
   try {
-    temperatureStatus.textContent = "Aggiornamento";
-
     const response = await fetch(`${WEATHER_URL}&t=${Date.now()}`, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const data = await response.json();
     const temperature = data?.current_weather?.temperature;
 
-    if (typeof temperature !== "number") {
-      throw new Error("Temperatura non presente nella risposta");
-    }
+    if (typeof temperature !== "number") throw new Error("Temp not found");
 
-    currentTemperature.textContent = `${Math.round(temperature)}\u00b0C`;
-    temperatureStatus.textContent = "Senigallia";
+    currentTempEl.innerHTML = `${Math.round(temperature)}&deg;C`;
+
   } catch (error) {
-    console.error("Errore durante il recupero della temperatura:", error);
-    currentTemperature.textContent = "--\u00b0C";
-    temperatureStatus.textContent = "Dato non disponibile";
+    console.error("Errore temperatura:", error);
+    currentTempEl.textContent = "--°C";
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  updateClock();
+  setInterval(updateClock, 1000);
+  
   fetchBulletin();
   fetchTemperature();
 
