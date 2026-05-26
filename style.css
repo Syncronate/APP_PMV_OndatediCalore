@@ -84,8 +84,8 @@ h1 {
 
 .alert-icon-box {
   flex: 0 0 auto;
-  width: 25%;
   height: 80%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
