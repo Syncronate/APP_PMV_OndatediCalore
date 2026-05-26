@@ -1,5 +1,5 @@
 const BULLETIN_JSON_URL = "bollettino_ancona.json";
-const WEATHER_URL = "https://api.open-meteo.com/v1/forecast?latitude=43.71&longitude=13.22&current_weather=true";
+const WEATHER_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQRYZz5cm8M6XWpz9aFh62Pw-2q-7pIpViKFV_Zv4qlJMWYTQwg2zMW9L1U_s3QfPdrQtNPvmD8cBUx/pub?gid=377471478&single=true&output=csv";
 const CITY = "ANCONA";
 const BULLETIN_REFRESH_MS = 60 * 60 * 1000;
 const TEMPERATURE_REFRESH_MS = 15 * 60 * 1000;
@@ -206,10 +206,28 @@ async function fetchTemperature() {
     const response = await fetch(`${WEATHER_URL}&t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-    const data = await response.json();
-    const temperature = data?.current_weather?.temperature;
+    const csvText = await response.text();
+    const rows = parseCsv(csvText);
 
-    if (typeof temperature !== "number") throw new Error("Temp not found");
+    if (rows.length < 2) throw new Error("No data rows found in CSV");
+
+    // The header is the first row. We find the index of "Sant'Angelo - Temperatura Aria (°C)"
+    const headerRow = rows[0];
+    const tempIndex = headerRow.findIndex(h => h.includes("Sant'Angelo - Temperatura Aria"));
+
+    if (tempIndex === -1) throw new Error("Temperature column not found in CSV");
+
+    // Get the last row of data
+    const lastRow = rows[rows.length - 1];
+    let tempStr = lastRow[tempIndex];
+
+    if (!tempStr || tempStr === "N/A") throw new Error("Temperature data is missing in the last row");
+
+    // Remove quotes and replace comma with dot
+    tempStr = tempStr.replace(/"/g, '').replace(',', '.');
+    const temperature = parseFloat(tempStr);
+
+    if (isNaN(temperature)) throw new Error("Parsed temperature is not a number");
 
     currentTempEl.innerHTML = `${Math.round(temperature)}&deg;C`;
 
