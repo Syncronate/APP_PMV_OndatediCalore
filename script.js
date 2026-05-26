@@ -1,4 +1,4 @@
-const BULLETIN_CSV_URL = "https://raw.githubusercontent.com/ondata/ondate-calore/main/data/ondate-calore_latest.csv";
+const BULLETIN_JSON_URL = "bollettino_ancona.json";
 const WEATHER_URL = "https://api.open-meteo.com/v1/forecast?latitude=43.71&longitude=13.22&current_weather=true";
 const CITY = "ANCONA";
 const BULLETIN_REFRESH_MS = 60 * 60 * 1000;
@@ -175,30 +175,26 @@ function renderBulletin(items) {
 
 async function fetchBulletin() {
   try {
-    const response = await fetch(`${BULLETIN_CSV_URL}?t=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch(`${BULLETIN_JSON_URL}?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-    const csvText = await response.text();
-    const rows = mapCsvRows(parseCsv(csvText));
-    const anconaRows = rows
-      .filter((row) => row.city.trim().toUpperCase() === CITY)
-      .sort((a, b) => a.date.localeCompare(b.date));
+    const items = await response.json();
 
-    if (anconaRows.length === 0) {
+    if (!items || items.length === 0) {
       renderBulletin([]);
       return;
     }
 
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const latestRows = anconaRows
+    const latestRows = items
       .filter((row) => {
         const rowDate = new Date(`${row.date}T00:00:00`);
         return Number.isNaN(rowDate.getTime()) || rowDate >= today;
       })
       .slice(0, 3);
 
-    renderBulletin(latestRows.length > 0 ? latestRows : anconaRows.slice(-3));
+    renderBulletin(latestRows.length > 0 ? latestRows : items.slice(-3));
   } catch (error) {
     console.error("Errore bollettino:", error);
     renderBulletin([]);
