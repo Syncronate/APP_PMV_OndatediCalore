@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #000000;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+/* ─── Main Layout ─── */
+.pmv-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 2vw;
+  background: #000000;
+}
+
+/* ─── FORECAST GRID (1-column Vertical) ─── */
+.forecast-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2vh;
+  margin-bottom: 2vh;
+}
+
+/* ─── CARDS ─── */
+.alert-card {
+  display: flex;
+  align-items: center;
+  background: #000000;
+  border: none;
+  padding: 0;
+  height: 100%;
+}
+
+.alert-icon-box {
+  flex: 0 0 auto;
+  width: 25vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #555555;
+  border-radius: 4px;
+  margin-right: 3vw;
+}
+
+.alert-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.alert-title {
+  font-size: clamp(10px, 8vh, 64px);
+  font-weight: 800;
+  margin-bottom: 0.5vh;
+  display: flex;
+  align-items: center;
+}
+
+.alert-status {
+  font-size: clamp(8px, 6vh, 42px);
+  font-weight: 700;
+  color: #aaaaaa;
+}
+
+/* Level Borders & Thermometer Colors */
+.level-0 .alert-icon-box { border-color: #00DB00; }
+.level-1 .alert-icon-box { border-color: #FFD800; }
+.level-2 .alert-icon-box { border-color: #FF8C00; }
+.level-3 .alert-icon-box { border-color: #E00000; }
+.level-missing .alert-icon-box { border-color: #555555; }
+
+.level-0 .alert-title { color: #00DB00; }
+.level-1 .alert-title { color: #FFD800; }
+.level-2 .alert-title { color: #FF8C00; }
+.level-3 .alert-title { color: #E00000; }
+.level-missing .alert-title { color: #555555; }
+
+.level-0 .thermo-liquid { stroke: #00DB00; }
+.level-0 .thermo-bulb-liquid { fill: #00DB00; }
+.level-1 .thermo-liquid { stroke: #FFD800; }
+.level-1 .thermo-bulb-liquid { fill: #FFD800; }
+.level-2 .thermo-liquid { stroke: #FF8C00; }
+.level-2 .thermo-bulb-liquid { fill: #FF8C00; }
+.level-3 .thermo-liquid { stroke: #E00000; }
+.level-3 .thermo-bulb-liquid { fill: #E00000; }
+.level-missing .thermo-liquid { stroke: #555555; }
+.level-missing .thermo-bulb-liquid { fill: #555555; }
+
+/* ─── FOOTER TITLE ─── */
+.footer-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 15%;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(10px, 8vh, 64px);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #00DB00; /* Matching the METEOALERT 2.0 green style */
+}
+
+.highlight-city {
+  color: #00DB00;
+}
+
+/* ─── ANIMATED THERMOMETER ─── */
+.thermometer-icon {
+  width: 60%;
+  height: 90%;
+}
+
+/* The liquid stroke-dasharray animation */
+.thermo-liquid {
+  stroke-dasharray: 50; /* length of line from 80 to 30 is 50 */
+  animation: liquid-up-down 3s infinite ease-in-out;
+}
+
+@keyframes liquid-up-down {
+  0% { stroke-dashoffset: 50; }  /* Empty */
+  50% { stroke-dashoffset: 0; }  /* Full */
+  100% { stroke-dashoffset: 50; } /* Empty */
+}

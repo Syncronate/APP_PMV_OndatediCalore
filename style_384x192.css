@@ -35,7 +35,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: clamp(24px, 4vw, 48px);
+  font-size: clamp(12px, 8vh, 48px);
   font-weight: 700;
   margin-bottom: 2vh;
 }
@@ -54,7 +54,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(32px, 5vw, 64px);
+  font-size: clamp(16px, 10vh, 64px);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -89,7 +89,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 4px solid #555555;
+  border: 2px solid #555555;
   border-radius: 6px;
   margin-right: 2vw;
 }
@@ -102,7 +102,7 @@ h1 {
 }
 
 .alert-title {
-  font-size: clamp(24px, 4vw, 64px);
+  font-size: clamp(14px, 8vh, 64px);
   font-weight: 800;
   margin-bottom: 0.5vh;
   display: flex;
@@ -112,7 +112,7 @@ h1 {
 
 
 .alert-status {
-  font-size: clamp(16px, 2.5vw, 42px);
+  font-size: clamp(10px, 6vh, 42px);
   font-weight: 700;
   color: #aaaaaa;
 }
@@ -157,7 +157,7 @@ h1 {
 }
 
 .temp-label {
-  font-size: clamp(16px, 2vw, 36px);
+  font-size: clamp(10px, 6vh, 36px);
   font-weight: 800;
   color: #ffffff; /* White */
   text-transform: uppercase;
@@ -165,7 +165,7 @@ h1 {
 }
 
 .temp-value {
-  font-size: clamp(36px, 6vw, 96px);
+  font-size: clamp(16px, 10vh, 96px);
   font-weight: 800;
   color: #ffffff;
 }
@@ -179,7 +179,7 @@ h1 {
 }
 
 .qr-title {
-  font-size: clamp(16px, 2vw, 36px);
+  font-size: clamp(10px, 6vh, 36px);
   font-weight: 800;
   color: #ffffff; /* White */
   text-transform: uppercase;
@@ -187,10 +187,10 @@ h1 {
 }
 
 .qr-code {
-  width: min(14vw, 18vh);
-  height: min(14vw, 18vh);
-  min-width: 80px;
-  min-height: 80px;
+  width: 25vh;
+  height: 25vh;
+  min-width: 40px;
+  min-height: 40px;
   background: white;
   padding: 4px;
   border-radius: 4px;
