@@ -54,7 +54,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(16px, 10vh, 64px);
+  font-size: clamp(12px, 5.5vh, 26px);
   font-weight: 800;
   text-transform: uppercase;
 }
