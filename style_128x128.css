@@ -112,10 +112,11 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(10px, 8vh, 64px);
+  font-size: clamp(8px, 3.5vh, 24px);
   font-weight: 800;
   text-transform: uppercase;
   color: #00DB00; /* Matching the METEOALERT 2.0 green style */
+  line-height: 1.1;
 }
 
 .highlight-city {
