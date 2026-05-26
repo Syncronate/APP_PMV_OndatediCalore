@@ -13,16 +13,16 @@ const LEVEL_LABELS = {
 
 const LEVEL_CLASSES = ["level-0", "level-1", "level-2", "level-3", "level-missing"];
 
-// DOM Elements
-const currentDateEl = document.getElementById("current-date");
-const currentTimeEl = document.getElementById("current-time");
-const currentTempEl = document.getElementById("current-temperature");
-const qrCodeEl = document.getElementById("qr-code");
+// DOM Elements (evaluated later since elements might be absent)
+const getEl = (id) => document.getElementById(id);
 
 const MONTHS = ["GEN", "FEB", "MAR", "APR", "MAG", "GIU", "LUG", "AGO", "SET", "OTT", "NOV", "DIC"];
 const DAYS = ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"];
 
 function updateClock() {
+  const currentDateEl = getEl("current-date");
+  const currentTimeEl = getEl("current-time");
+
   const now = new Date();
   const dayName = DAYS[now.getDay()];
   const day = now.getDate().toString().padStart(2, '0');
@@ -31,8 +31,12 @@ function updateClock() {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
 
-  currentDateEl.textContent = `${dayName} ${day} ${monthName}`;
-  currentTimeEl.textContent = `${hours}:${minutes}`;
+  if (currentDateEl) {
+    currentDateEl.textContent = `${dayName} ${day} ${monthName}`;
+  }
+  if (currentTimeEl) {
+    currentTimeEl.textContent = `${hours}:${minutes}`;
+  }
 }
 
 // CSV Parsing
@@ -129,6 +133,9 @@ function parseLevel(rawLevel) {
 }
 
 function renderQrCode(pdfUrl) {
+  const qrCodeEl = getEl("qr-code");
+  if (!qrCodeEl) return;
+
   qrCodeEl.innerHTML = "";
   if (!pdfUrl) return;
 
@@ -229,11 +236,17 @@ async function fetchTemperature() {
 
     if (isNaN(temperature)) throw new Error("Parsed temperature is not a number");
 
-    currentTempEl.innerHTML = `${Math.round(temperature)}&deg;C`;
+    const currentTempEl = getEl("current-temperature");
+    if (currentTempEl) {
+      currentTempEl.innerHTML = `${Math.round(temperature)}&deg;C`;
+    }
 
   } catch (error) {
     console.error("Errore temperatura:", error);
-    currentTempEl.textContent = "--°C";
+    const currentTempEl = getEl("current-temperature");
+    if (currentTempEl) {
+      currentTempEl.textContent = "--°C";
+    }
   }
 }
 

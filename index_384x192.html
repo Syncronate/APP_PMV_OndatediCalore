@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bollettino Ondate di Calore - Senigallia</title>
+  <link rel="stylesheet" href="style_384x192.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <main class="pmv-screen" aria-live="polite">
+    <header class="header">
+      <div class="header-top">
+        <div id="current-date" class="date-text">-- -- --</div>
+        <div id="current-time" class="time-text">--:--</div>
+      </div>
+      <div class="header-title">
+        <h1>ONDATE DI CALORE <span class="highlight-city">SENIGALLIA</span></h1>
+      </div>
+    </header>
+
+    <section id="forecast-grid" class="forecast-grid" aria-label="Previsioni rischio caldo">
+      
+      <!-- Forecast Today -->
+      <article class="alert-card level-missing" id="card-0">
+        <div class="alert-icon-box">
+          <svg class="thermometer-icon" viewBox="0 0 50 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="thermo-glass" d="M 25 10 L 25 80" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none" />
+            <circle class="thermo-bulb" cx="25" cy="95" r="16" fill="#ffffff" />
+            <path class="thermo-liquid-bg" d="M 25 15 L 25 80" stroke="#333333" stroke-width="4" stroke-linecap="round" fill="none" />
+            <path class="thermo-liquid" d="M 25 80 L 25 30" stroke-width="4" stroke-linecap="round" fill="none" />
+            <circle class="thermo-bulb-liquid" cx="25" cy="95" r="13" />
+            <g class="thermo-marks">
+              <line x1="12" y1="20" x2="19" y2="20" stroke="#ffffff" stroke-width="2" />
+              <line x1="12" y1="40" x2="19" y2="40" stroke="#ffffff" stroke-width="2" />
+              <line x1="12" y1="60" x2="19" y2="60" stroke="#ffffff" stroke-width="2" />
+            </g>
+          </svg>
+        </div>
+        <div class="alert-info">
+          <div class="alert-title" id="date-0">--/--</div>
+          <div class="alert-status" id="status-0">DATO NON DISPONIBILE</div>
+        </div>
+      </article>
+
+      <!-- Forecast Tomorrow -->
+      <article class="alert-card level-missing" id="card-1">
+        <div class="alert-icon-box">
+          <svg class="thermometer-icon" viewBox="0 0 50 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="thermo-glass" d="M 25 10 L 25 80" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none" />
+            <circle class="thermo-bulb" cx="25" cy="95" r="16" fill="#ffffff" />
+            <path class="thermo-liquid-bg" d="M 25 15 L 25 80" stroke="#333333" stroke-width="4" stroke-linecap="round" fill="none" />
+            <path class="thermo-liquid" d="M 25 80 L 25 30" stroke-width="4" stroke-linecap="round" fill="none" />
+            <circle class="thermo-bulb-liquid" cx="25" cy="95" r="13" />
+            <g class="thermo-marks">
+              <line x1="12" y1="20" x2="19" y2="20" stroke="#ffffff" stroke-width="2" />
+              <line x1="12" y1="40" x2="19" y2="40" stroke="#ffffff" stroke-width="2" />
+              <line x1="12" y1="60" x2="19" y2="60" stroke="#ffffff" stroke-width="2" />
+            </g>
+          </svg>
+        </div>
+        <div class="alert-info">
+          <div class="alert-title" id="date-1">--/--</div>
+          <div class="alert-status" id="status-1">DATO NON DISPONIBILE</div>
+        </div>
+      </article>
+
+      <!-- Forecast Day After Tomorrow -->
+      <article class="alert-card level-missing" id="card-2">
+        <div class="alert-icon-box">
+          <svg class="thermometer-icon" viewBox="0 0 50 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="thermo-glass" d="M 25 10 L 25 80" stroke="#ffffff" stroke-width="8" stroke-linecap="round" fill="none" />
+            <circle class="thermo-bulb" cx="25" cy="95" r="16" fill="#ffffff" />
+            <path class="thermo-liquid-bg" d="M 25 15 L 25 80" stroke="#333333" stroke-width="4" stroke-linecap="round" fill="none" />
+            <path class="thermo-liquid" d="M 25 80 L 25 30" stroke-width="4" stroke-linecap="round" fill="none" />
+            <circle class="thermo-bulb-liquid" cx="25" cy="95" r="13" />
+            <g class="thermo-marks">
+              <line x1="12" y1="20" x2="19" y2="20" stroke="#ffffff" stroke-width="2" />
+              <line x1="12" y1="40" x2="19" y2="40" stroke="#ffffff" stroke-width="2" />
+              <line x1="12" y1="60" x2="19" y2="60" stroke="#ffffff" stroke-width="2" />
+            </g>
+          </svg>
+        </div>
+        <div class="alert-info">
+          <div class="alert-title" id="date-2">--/--</div>
+          <div class="alert-status" id="status-2">DATO NON DISPONIBILE</div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="footer">
+      <!-- Specular Temperature Widget -->
+      <div class="footer-temperature">
+        <div class="temp-label">TEMPERATURA</div>
+        <div id="current-temperature" class="temp-value">--&deg;C</div>
+      </div>
+      
+      <!-- QR Code Panel -->
+      <div class="qr-panel" aria-label="QR Code bollettino ufficiale">
+        <div class="qr-title">Scarica il Bollettino</div>
+        <div id="qr-code" class="qr-code"></div>
+      </div>
+    </footer>
+  </main>
+</body>
+
+</html>

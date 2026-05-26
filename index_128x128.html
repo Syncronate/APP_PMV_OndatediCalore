@@ -5,25 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bollettino Ondate di Calore - Senigallia</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <link rel="stylesheet" href="style_128x128.css">
   <script src="script.js" defer></script>
 </head>
 
 <body>
   <main class="pmv-screen" aria-live="polite">
-    <header class="header">
-      <div class="header-top">
-        <div id="current-date" class="date-text">-- -- --</div>
-        <div id="current-time" class="time-text">--:--</div>
-      </div>
-      <div class="header-title">
-        <h1>ONDATE DI CALORE <span class="highlight-city">SENIGALLIA</span></h1>
-      </div>
-    </header>
-
     <section id="forecast-grid" class="forecast-grid" aria-label="Previsioni rischio caldo">
-      
+
       <!-- Forecast Today -->
       <article class="alert-card level-missing" id="card-0">
         <div class="alert-icon-box">
@@ -92,18 +81,8 @@
 
     </section>
 
-    <footer class="footer">
-      <!-- Specular Temperature Widget -->
-      <div class="footer-temperature">
-        <div class="temp-label">TEMPERATURA</div>
-        <div id="current-temperature" class="temp-value">--&deg;C</div>
-      </div>
-      
-      <!-- QR Code Panel -->
-      <div class="qr-panel" aria-label="QR Code bollettino ufficiale">
-        <div class="qr-title">Scarica il Bollettino</div>
-        <div id="qr-code" class="qr-code"></div>
-      </div>
+    <footer class="footer-title">
+      <h1>ONDATE DI CALORE <span class="highlight-city">SENIGALLIA</span></h1>
     </footer>
   </main>
 </body>
