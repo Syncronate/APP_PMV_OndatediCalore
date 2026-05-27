@@ -66,13 +66,13 @@ body {
 
 .alert-icon-box {
   flex: 0 0 auto;
-  width: 19vw;
+  aspect-ratio: 1 / 1;
   height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #555555;
-  border-radius: 4px;
+  border: 3px solid #555555;
+  border-radius: 0;
   margin-right: 3vw;
 }
 
@@ -94,8 +94,8 @@ body {
 }
 
 .alert-status {
-  font-size: clamp(8px, 6vh, 42px);
-  font-weight: 700;
+  font-size: clamp(10px, 7vh, 50px);
+  font-weight: 800;
   color: #aaaaaa;
 }
 
@@ -180,7 +180,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(8px, 3.5vh, 24px);
+  font-size: clamp(10px, 5.5vh, 36px);
   font-weight: 800;
   text-transform: uppercase;
   color: #00DB00; /* Matching the METEOALERT 2.0 green style */
