@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bollettino Ondate di Calore - Senigallia</title>
   <link rel="stylesheet" href="style_128x128.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 
@@ -81,8 +82,19 @@
 
     </section>
 
-    <footer class="footer-title">
-      <h1>ONDATE DI CALORE <span class="highlight-city">SENIGALLIA</span></h1>
+    <footer class="footer">
+      <div class="footer-title">
+        <h1>ONDATE DI CALORE <span class="highlight-city">SENIGALLIA</span></h1>
+      </div>
+      <div class="right-panel">
+        <div class="footer-temperature">
+          <div class="temp-label">TEMP</div>
+          <div id="current-temperature" class="temp-value">--&deg;C</div>
+        </div>
+        <div class="qr-panel" aria-label="QR Code bollettino ufficiale">
+          <div id="qr-code" class="qr-code"></div>
+        </div>
+      </div>
     </footer>
   </main>
 </body>

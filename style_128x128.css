@@ -22,6 +22,7 @@ body {
   flex-direction: column;
   padding: 2vh 2vw;
   background: #000000;
+  position: relative;
 }
 
 /* ─── FORECAST GRID (1-column Vertical) ─── */
@@ -43,6 +44,25 @@ body {
   padding: 0;
   height: 100%;
 }
+
+.today-badge {
+  font-size: 0.6em;
+  font-weight: 800;
+  color: #000000;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.level-0 .today-badge { background-color: #00DB00; }
+.level-1 .today-badge { background-color: #FFD800; }
+.level-2 .today-badge { background-color: #FF8C00; }
+.level-3 .today-badge { background-color: #E00000; }
+.level-missing .today-badge { background-color: #555555; color: #ffffff; }
 
 .alert-icon-box {
   flex: 0 0 auto;
@@ -66,9 +86,11 @@ body {
 .alert-title {
   font-size: clamp(10px, 8vh, 64px);
   font-weight: 800;
-  margin-bottom: 0.5vh;
+  margin-bottom: 2px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .alert-status {
@@ -101,13 +123,75 @@ body {
 .level-missing .thermo-liquid { stroke: #555555; }
 .level-missing .thermo-bulb-liquid { fill: #555555; }
 
-/* ─── FOOTER TITLE ─── */
+/* ─── FOOTER ─── */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 15%;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
 .footer-title {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  text-align: left;
+}
+
+.right-panel {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-temperature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  height: 15%;
+}
+
+.temp-label {
+  font-size: clamp(6px, 1.5vh, 12px);
+  font-weight: 800;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  line-height: 1;
+}
+
+.temp-value {
+  font-size: clamp(10px, 3vh, 22px);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.qr-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-code {
+  width: 128px;
+  height: 128px;
+  background: white;
+  padding: 4px;
+  border-radius: 2px;
+}
+
+.qr-code img,
+.qr-code canvas {
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
@@ -117,6 +201,8 @@ h1 {
   text-transform: uppercase;
   color: #00DB00; /* Matching the METEOALERT 2.0 green style */
   line-height: 1.1;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .highlight-city {
