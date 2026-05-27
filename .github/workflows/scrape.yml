@@ -38,7 +38,7 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git add bollettino_ancona.json
         # Esegui il commit solo se il file ha effettivamente subito modifiche
-        if ! git diff --quiet && git diff --cached --quiet; then
+        if ! git diff --cached --quiet; then
           git commit -m "Aggiornamento automatico bollettino ondate di calore"
           git push
         else
