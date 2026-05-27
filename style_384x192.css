@@ -54,7 +54,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(16px, 7vh, 32px);
+  font-size: clamp(20px, 9vh, 40px);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -103,7 +103,7 @@ h1 {
 
 .alert-icon-box {
   flex: 0 0 auto;
-  height: 80%;
+  height: 65%;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
