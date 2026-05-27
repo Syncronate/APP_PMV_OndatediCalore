@@ -188,11 +188,23 @@ function renderBulletin(items) {
     }
 
     const dateFormatted = item?.date ? formatDate(item.date) : "--/--";
-    if (item?.date && item.date === todayStr) {
-      dateEl.innerHTML = `<span class="today-badge">OGGI</span>${dateFormatted}`;
-    } else {
+    const badgeContainer = document.getElementById(`badge-${i}`);
+    
+    if (badgeContainer) {
+      if (item?.date && item.date === todayStr) {
+        badgeContainer.innerHTML = `<span class="today-badge">OGGI</span>`;
+      } else {
+        badgeContainer.innerHTML = "";
+      }
       dateEl.textContent = dateFormatted;
+    } else {
+      if (item?.date && item.date === todayStr) {
+        dateEl.innerHTML = `<span class="today-badge">OGGI</span>${dateFormatted}`;
+      } else {
+        dateEl.textContent = dateFormatted;
+      }
     }
+    
     statusEl.textContent = validLevel ? LEVEL_LABELS[level] : "DATO NON DISPONIBILE";
     
     if (item?.pdfUrl) {
