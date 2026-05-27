@@ -12,6 +12,10 @@
 
 <body>
   <main class="pmv-screen" aria-live="polite">
+    <!-- Top-Right Temperature Widget -->
+    <div class="top-temperature">
+      <div id="current-temperature" class="temp-value">--&deg;C</div>
+    </div>
     <section id="forecast-grid" class="forecast-grid" aria-label="Previsioni rischio caldo">
 
       <!-- Forecast Today -->
@@ -86,14 +90,8 @@
       <div class="footer-title">
         <h1>ONDATE DI CALORE <span class="highlight-city">SENIGALLIA</span></h1>
       </div>
-      <div class="right-panel">
-        <div class="footer-temperature">
-          <div class="temp-label">TEMP</div>
-          <div id="current-temperature" class="temp-value">--&deg;C</div>
-        </div>
-        <div class="qr-panel" aria-label="QR Code bollettino ufficiale">
-          <div id="qr-code" class="qr-code"></div>
-        </div>
+      <div class="qr-panel" aria-label="QR Code bollettino ufficiale">
+        <div id="qr-code" class="qr-code"></div>
       </div>
     </footer>
   </main>

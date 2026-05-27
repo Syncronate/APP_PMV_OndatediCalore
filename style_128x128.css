@@ -140,41 +140,24 @@ body {
   text-align: left;
 }
 
-.right-panel {
+.top-temperature {
   position: absolute;
-  bottom: 2px;
-  right: 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  top: 4px;
+  right: 6px;
+  z-index: 100;
 }
 
-.footer-temperature {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.temp-label {
-  font-size: clamp(6px, 1.5vh, 12px);
-  font-weight: 800;
-  color: #aaaaaa;
-  text-transform: uppercase;
-  margin-bottom: 0px;
-  line-height: 1;
-}
-
-.temp-value {
-  font-size: clamp(10px, 3vh, 22px);
+.top-temperature .temp-value {
+  font-size: clamp(18px, 6vh, 46px);
   font-weight: 800;
   color: #ffffff;
   line-height: 1;
 }
 
 .qr-panel {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
   display: flex;
   align-items: center;
   justify-content: center;

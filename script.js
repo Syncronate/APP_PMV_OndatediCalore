@@ -142,8 +142,8 @@ function renderQrCode(pdfUrl) {
   if (typeof QRCode !== "undefined") {
     new QRCode(qrCodeEl, {
       text: pdfUrl,
-      width: 100,
-      height: 100,
+      width: 256,
+      height: 256,
       colorDark: "#000000",
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.M
@@ -154,6 +154,12 @@ function renderQrCode(pdfUrl) {
 function renderBulletin(items) {
   const visibleItems = items.slice(0, 3);
   let pdfUrl = "";
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const todayStr = `${year}-${month}-${day}`;
 
   for (let i = 0; i < 3; i++) {
     const card = document.getElementById(`card-${i}`);
@@ -167,9 +173,26 @@ function renderBulletin(items) {
     const validLevel = Number.isInteger(level) && level >= 0 && level <= 3;
 
     card.classList.remove(...LEVEL_CLASSES);
+    card.classList.remove("is-today", "is-past");
     card.classList.add(getLevelClass(validLevel ? level : null));
 
-    dateEl.textContent = item?.date ? formatDate(item.date) : "--/--";
+    if (item?.date) {
+      console.log(`Confronto date - Card ID: ${card.id}, JSON Date: "${item.date}", Local Today: "${todayStr}"`);
+
+      if (item.date === todayStr) {
+        console.log(`-> MATCH! Aggiungo is-today a ${card.id}`);
+        card.classList.add("is-today");
+      } else if (item.date < todayStr) {
+        card.classList.add("is-past");
+      }
+    }
+
+    const dateFormatted = item?.date ? formatDate(item.date) : "--/--";
+    if (item?.date && item.date === todayStr) {
+      dateEl.innerHTML = `<span class="today-badge">OGGI</span>${dateFormatted}`;
+    } else {
+      dateEl.textContent = dateFormatted;
+    }
     statusEl.textContent = validLevel ? LEVEL_LABELS[level] : "DATO NON DISPONIBILE";
     
     if (item?.pdfUrl) {
@@ -192,16 +215,7 @@ async function fetchBulletin() {
       return;
     }
 
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const latestRows = items
-      .filter((row) => {
-        const rowDate = new Date(`${row.date}T00:00:00`);
-        return Number.isNaN(rowDate.getTime()) || rowDate >= today;
-      })
-      .slice(0, 3);
-
-    renderBulletin(latestRows.length > 0 ? latestRows : items.slice(-3));
+    renderBulletin(items.slice(-3));
   } catch (error) {
     console.error("Errore bollettino:", error);
     renderBulletin([]);
