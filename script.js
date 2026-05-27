@@ -1,4 +1,4 @@
-const BULLETIN_JSON_URL = "bollettino_ancona.json";
+const BULLETIN_CSV_URL = "https://raw.githubusercontent.com/ondata/ondate-calore/main/data/ondate-calore_latest.csv";
 const WEATHER_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQRYZz5cm8M6XWpz9aFh62Pw-2q-7pIpViKFV_Zv4qlJMWYTQwg2zMW9L1U_s3QfPdrQtNPvmD8cBUx/pub?gid=377471478&single=true&output=csv";
 const CITY = "ANCONA";
 const BULLETIN_REFRESH_MS = 60 * 60 * 1000;
@@ -205,17 +205,24 @@ function renderBulletin(items) {
 
 async function fetchBulletin() {
   try {
-    const response = await fetch(`${BULLETIN_JSON_URL}?t=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch(`${BULLETIN_CSV_URL}?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-    const items = await response.json();
+    const csvText = await response.text();
+    const rows = parseCsv(csvText);
+    const items = mapCsvRows(rows);
 
-    if (!items || items.length === 0) {
+    // Filtra solo la città configurata
+    const cityItems = items.filter(item => item.city.toUpperCase() === CITY.toUpperCase());
+
+    if (!cityItems || cityItems.length === 0) {
       renderBulletin([]);
       return;
     }
 
-    renderBulletin(items.slice(-3));
+    // Ordina per data crescente e prendi le ultime 3 previsioni
+    cityItems.sort((a, b) => a.date.localeCompare(b.date));
+    renderBulletin(cityItems.slice(-3));
   } catch (error) {
     console.error("Errore bollettino:", error);
     renderBulletin([]);
