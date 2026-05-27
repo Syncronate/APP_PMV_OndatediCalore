@@ -54,7 +54,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(24px, 12vh, 48px);
+  font-size: clamp(16px, 7vh, 32px);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -103,13 +103,13 @@ h1 {
 
 .alert-icon-box {
   flex: 0 0 auto;
-  width: 25%;
   height: 80%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #555555;
-  border-radius: 6px;
+  border: 4px solid #555555;
+  border-radius: 0;
   margin-right: 2vw;
 }
 
@@ -134,7 +134,7 @@ h1 {
 
 .alert-status {
   font-size: clamp(10px, 6vh, 42px);
-  font-weight: 700;
+  font-weight: 800;
   color: #aaaaaa;
 }
 
@@ -225,8 +225,8 @@ h1 {
 
 /* ─── ANIMATED THERMOMETER ─── */
 .thermometer-icon {
-  width: 60%;
-  height: 90%;
+  width: 55%;
+  height: 85%;
 }
 
 /* The liquid stroke-dasharray animation */
